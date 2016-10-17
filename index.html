@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <style>
+      html{-webkit-tap-highlight-color:transparent}
+      body{margin:0;background:#0665BC}
+      .containner{max-width:640px;margin:auto}
+      img{display:block;width:100%;margin:-1px 0}
+      a{display:block}
+      a:active{transform:scale(.98)}
+    </style>
+  </head>
+  <body>
+    <div class="containner">
+      <img data-src="img/header.png">
+      <a id="download" href="#" style="display:none" title="下载">
+        <img data-src="img/download.png">
+      </a>
+      <img data-src="img/s1.png">
+      <img id="s2" data-src="img/s2.png" style="display:none">
+      <img id="s2_10m" data-src="img/s2_10m.png" style="display:none">
+      <img data-src="img/s3.png">
+    </div>
+    <script>
+      var imgBase = 'http://s2.cytxl.com.cn/txl/wap/activities/huiyuan';//线上资源地址
+      if(get('test')) imgBase = 'http://st0.cytxl.com.cn/txl/wap/activities/huiyuan';//测试资源地址
+      if(location.protocol=='file:'||get('local')) imgBase = 'img';//本地
+      var imgs = document.images;
+      for(var i=0;i<imgs.length;i++){
+        var img = imgs[i], dsrc = img.getAttribute('data-src');
+        if (dsrc) {img.src = dsrc.replace('img', imgBase)}
+      }
+
+      function get(k) {return (location.href.match(RegExp('[?&]'+k+'=(.*?)(&|#|$)'))||[])[1]}
+      function show(el) {el.style.display=''}
+      get('download')=='true'&&show(download);
+      show(get('10m')=='true'?s2_10m:s2)
+    </script>
+  </body>
+</html>
